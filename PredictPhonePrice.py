@@ -18,6 +18,8 @@ print()
 data=data_preprocessing_regr(data,["Brand Name","camera (in no./mp)"],["screensize (in inches)","RAM (in GB)","battery (in mah)","Prize (in Rs.)"])
 print("After Pre-processing \n :",data.info())
 
+#data.to_csv("test.csv",index=False)
+
 #define X and y
 X=data.iloc[:,:-1]
 print(X.head())
@@ -42,16 +44,19 @@ print()
 print("Root Mean Square Error \n: ",np.sqrt(metrics.mean_squared_error(y_pred,y_test)))
 print()
 
+
 #test on new data...Ex. Poco, Honor, 
 '''
 Brand Name	camera (in no./mp)	screensize (in inches)	RAM (in GB)	battery (in mah)
 Realme	Triple	6.5	4	6000
 '''
-BrandName="Realme"
-camera="Triple"
-screensize="6.5"
-RAM="4"
-battery="6000"
+
+# model overfit (Nokia, 5, 5MP, 2, 3000 ; Xiaomi, 5 , 5MP, 2 , 3000)
+BrandName="Xiaomi"
+screensize="5"
+camera="5MP"
+RAM="2"
+battery="3000"
 
 predict_price(model,BrandName,camera,screensize,RAM,battery)
 

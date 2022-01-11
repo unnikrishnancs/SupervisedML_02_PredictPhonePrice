@@ -47,40 +47,23 @@ def data_preprocessing_regr(data,cat_cols,oth_numeric_cols):
 
 
 #function to predict new data
-def predict_price(model,BrandName,camera,screensize,RAM,battery):
+def predict_price(model,brand,cam,screensize,RAM,battery):
 	try:
 		# initialize one-hot vector for "Locality" (all 0s)
-		inp={'Locality_BTM Layout':0, 'Locality_Bagaluru Near Yelahanka':0,
-		'Locality_Banashankari':0, 'Locality_Banaswadi':0, 'Locality_Battarahalli':0,
-		'Locality_Begur':0, 'Locality_Bellandur':0, 'Locality_Bommanahalli':0,
-		'Locality_Brookefield':0, 'Locality_Budigere Cross':0,
-		'Locality_CV Raman Nagar':0, 'Locality_Chandapura':0,
-		'Locality_Dasarahalli on Tumkur Road':0,
-		'Locality_Electronic City Phase 1':0, 'Locality_Electronics City':0,
-		'Locality_Gottigere':0, 'Locality_HSR Layout':0, 'Locality_Harlur':0,
-		'Locality_Hebbal':0, 'Locality_Hennur':0, 'Locality_Horamavu':0,
-		'Locality_Hosa Road':0, 'Locality_Hoskote':0, 'Locality_Hulimavu':0,
-		'Locality_Indira Nagar':0, 'Locality_J. P. Nagar':0,
-		'Locality_JP Nagar Phase 7':0, 'Locality_Jakkur':0, 'Locality_Jayanagar':0,
-		'Locality_Jigani':0, 'Locality_Kalyan Nagar':0,
-		'Locality_Kannur on Thanisandra Main Road':0, 'Locality_Kasavanahalli':0,
-		'Locality_Koramangala':0, 'Locality_Krishnarajapura':0,
-		'Locality_Kumbalgodu':0, 'Locality_Mahadevapura':0, 'Locality_Marathahalli':0,
-		'Locality_Marsur':0, 'Locality_Murugeshpalya':0, 'Locality_Nagarbhavi':0,
-		'Locality_Narayanapura on Hennur Main Road':0, 'Locality_RR Nagar':0,
-		'Locality_Rajajinagar':0, 'Locality_Ramamurthy Nagar':0,
-		'Locality_Sarjapur':0, 'Locality_Sarjapur Road Post Railway Crossing':0,
-		'Locality_Subramanyapura':0, 'Locality_Talaghattapura':0,
-		'Locality_Thanisandra':0, 'Locality_Varthur':0, 'Locality_Vidyaranyapura':0,
-		'Locality_Whitefield':0, 'Locality_Whitefield Hope Farm Junction':0,
-		'Locality_Yelahanka':0}        
+		inp={
+		'Brand Name_Apple':0,'Brand Name_Google':0,'Brand Name_Micromax':0,'Brand Name_Motorola':0,'Brand Name_Nokia':0,
+		'Brand Name_OnePlus':0,'Brand Name_Oppo':0,'Brand Name_Realme':0,'Brand Name_Samsung':0,'Brand Name_Vivo':0,'Brand Name_Xiaomi':0,
+		'camera (in no./mp)_0.3MP':0,'camera (in no./mp)_12.2MP':0,'camera (in no./mp)_12MP':0,'camera (in no./mp)_13MP':0,
+		'camera (in no./mp)_5MP':0,'camera (in no./mp)_8MP':0,'camera (in no./mp)_Dual':0,'camera (in no./mp)_Quad':0,'camera (in no./mp)_Triple':0
+		}        
 		
 		#pass NEW data for prediction...in this case ---------- locality='Yelahanka', MinPrice=15000, MaxPrice=25000, AvgRent=20000 ----------
-		inp["Locality_"+loc]=1	
-		inp["MinPrice"]=min_p
-		inp["MaxPrice"]=max_p
-		inp["AvgRent"]=avg 
-		#print(inp)
+		inp["Brand Name_"+brand]=1
+		inp["camera (in no./mp)_"+cam]=1
+		inp["screensize (in inches)"]=screensize
+		inp["RAM (in GB)"]=RAM
+		inp["battery (in mah)"]=battery 
+		print(inp)
 		#print()
 		   	
 		#create datafrane
@@ -89,8 +72,7 @@ def predict_price(model,BrandName,camera,screensize,RAM,battery):
 		print()
 		
 		#predict the data
-		#print("House Type Prediction (locality=",loc,", min_price=",min_p,", max_price=",max_p,", avg_rent=", avg,") :",model.predict(inp_df))
-		print("House Type Prediction (locality=",loc,", min_price=",min_p,", max_price=",max_p,", avg_rent=", avg,") :",l2n.inverse_transform(model.predict(inp_df)))
+		print("Predicted Phone Price (BrandName=",brand,", camera=",cam,", screensize=",screensize,", RAM=", RAM," battery=",battery,") : INR ",model.predict(inp_df))
 		print()
 
 	except  Exception as ex:
