@@ -2,6 +2,8 @@
 import pandas as pd
 from sklearn.preprocessing  import OneHotEncoder
 import numpy as np
+from sklearn.preprocessing import StandardScaler
+
 
 
 if __name__=="__main__":
@@ -80,4 +82,10 @@ def predict_price(model,brand,cam,screensize,RAM,battery):
 		print()
 	
 
+#scale the feature vector X (inputs)
+def scale_features(data):
+	ss=StandardScaler()
+	data=pd.DataFrame(data=ss.fit_transform(data),columns=ss.feature_names_in_)
+	return data
+	
 
